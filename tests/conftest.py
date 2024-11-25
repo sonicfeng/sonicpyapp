@@ -1,9 +1,9 @@
 import sys
 import pytest
 
-from project_name import create_app
-from project_name.ext.commands import populate_db
-from project_name.ext.database import db
+from sonicpyapp import create_app
+from sonicpyapp.ext.commands import populate_db
+from sonicpyapp.ext.database import db
 
 
 @pytest.fixture(scope="session")
