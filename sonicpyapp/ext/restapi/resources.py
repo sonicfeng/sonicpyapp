@@ -2,7 +2,7 @@ from flask import abort, jsonify
 from flask_restful import Resource
 from flask_simplelogin import login_required
 
-from sonicpyapp.models import Product
+from sonicpyapp.models import Product,Rotation
 
 
 class ProductResource(Resource):
@@ -33,3 +33,16 @@ class ProductItemResource(Resource):
     def get(self, product_id):
         product = Product.query.filter_by(id=product_id).first() or abort(404)
         return jsonify(product.to_dict())
+
+class RotationResource(Resource):
+    def get(self):
+        rotation = Rotation.query.all() or abort(204)
+        return jsonify(
+            {"rotations": [rotation.to_dict() for rotation in rotations]}
+        )
+
+
+class RotationItemResource(Resource):
+    def get(self, rotation_id):
+        rotation = Rotation.query.filter_by(id=rotation_id).first() or abort(404)
+        return jsonify(rotation_id.to_dict())

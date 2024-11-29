@@ -2,7 +2,7 @@ import click
 
 from sonicpyapp.ext.auth import create_user
 from sonicpyapp.ext.database import db
-from sonicpyapp.models import Product
+from sonicpyapp.models import Product,Rotation
 
 
 def create_db():
@@ -23,15 +23,28 @@ def populate_db():
         ),
         Product(id=2, name="Baguete", price="15", description="French Bread"),
         Product(id=3, name="Pretzel", price="20", description="German Bread"),
+        #Rotation(id=1, person="wowwow", day="Monday"),
     ]
     db.session.bulk_save_objects(data)
     db.session.commit()
     return Product.query.all()
 
 
+def tryUpdate_db():
+    """Populate db with sample data"""
+    data = [
+       
+        Rotation(id=1, person="wowwow", day="Monday"),
+    ]
+    db.session.bulk_save_objects(data)
+    db.session.commit()
+    return Rotation.query.all()
+
+
+
 def init_app(app):
     # add multiple commands in a bulk
-    for command in [create_db, drop_db, populate_db]:
+    for command in [create_db, drop_db, populate_db, tryUpdate_db]:
         app.cli.add_command(app.cli.command()(command))
 
     # add a single command
