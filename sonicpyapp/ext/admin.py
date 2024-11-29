@@ -5,7 +5,7 @@ from flask_simplelogin import login_required
 from werkzeug.security import generate_password_hash
 
 from sonicpyapp.ext.database import db
-from sonicpyapp.models import Product, User
+from sonicpyapp.models import Product, User, Rotation
 
 # Proteck admin with login / Monkey Patch
 AdminIndexView._handle_view = login_required(AdminIndexView._handle_view)
@@ -21,6 +21,7 @@ class UserAdmin(sqla.ModelView):
         model.password = generate_password_hash(model.password)
 
 
+
 def init_app(app):
     admin.name = app.config.TITLE
     admin.template_mode = app.config.FLASK_ADMIN_TEMPLATE_MODE
@@ -29,5 +30,10 @@ def init_app(app):
     # Add admin page for Product
     admin.add_view(sqla.ModelView(Product, db.session))
 
+   # sonic Add admin page for Rotation
+    admin.add_view(sqla.ModelView(Rotation, db.session))
+
     # Add admin page for User
     admin.add_view(UserAdmin(User, db.session))
+
+    

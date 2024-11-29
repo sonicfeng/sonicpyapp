@@ -14,3 +14,10 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(140))
     password = db.Column(db.String(512))
+
+
+"Sonic test for DB usage, to store a dummy field value"
+class Rotation(db.Model, SerializerMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    person = db.Column(db.String(140))
+    day = db.Column(db.String(140))
